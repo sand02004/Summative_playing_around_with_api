@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maternal Health App</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 <body>
     <h1>Maternal Health App</h1>
     <p>Helping you to stay healthy during pregnancy.</p>
     
 
-    <form id="searchForm" value="Submit" method="post" action="/>
+    <form id="searchForm" method="post" action="/">
         <label for="name">Enter your name:</label>
         <input type="text" id="name" name="name" required>
         <label for="age">Enter your age:</label>
@@ -37,9 +38,9 @@
             <option value="yes">Yes</option>
             <option value="no">No</option>
         </select>
-        <input type="submit" value="Submit" method="post" action="/home">
+        <input type="submit" value="Submit">
     </form>
     <div id="results"></div>
-    <script src="script.js"></script>
+    <script src="../static/js/script.js"></script>
 </body>
 </html>

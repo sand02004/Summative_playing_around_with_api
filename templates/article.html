@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ subtitle }}</title>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container py-5">
+    <div class="mb-5 text-center">
+      <h1 class="display-5 fw-bold">{{ title }}</h1>
+      <h3 class="text-muted">{{ subtitle }}</h3>
+    </div>
+
+    <div class="mb-4">
+      <p class="fs-5">{{ content }}</p>
+    </div>
+
+    <div class="text-center">
+      <a href="{{ url_for('get_infos') }}" class="btn btn-secondary">Back to Articles</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

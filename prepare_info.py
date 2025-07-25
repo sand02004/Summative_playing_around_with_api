@@ -4,22 +4,10 @@ import requests
 import warnings
 from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 
-params = {
-    "age": 25,
-    "sex": "female",
-    "pregnant": "yes",
-    "sexually active": "yes",
-    "tobaccouse": "no"
-}
-
-url = "https://odphp.health.gov/myhealthfinder/api/v4/myhealthfinder.json"
-
 def get_information(url, params):
     response = requests.get(url=url, params=params)
     if response.status_code == 200:
         return response.json()
-
-data = get_information(url, params)
 
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
@@ -33,10 +21,8 @@ def strip_html(data):
     else:
         return data
 
-clean_data = strip_html(data)
-
 def get_clean_data(clean_data):
-    required_data = clean_data["Result"]["Resources"]["All"]["Resource"][:5]
+    required_data = clean_data["Result"]["Resources"]["All"]["Resource"][:10]
     get_all_titles = [data["Title"] for data in required_data]
 
     all_subtitles = []
@@ -49,7 +35,9 @@ def get_clean_data(clean_data):
         all_subtitles.extend(subtitles)
         all_resume.extend(resume)
 
-    ressource_url = "https://odphp.health.gov/myhealthfinder/pregnancy/doctor-and-midwife-visits/have-healthy-pregnancy"
-    url_list = [ressource_url] * 20
     return get_all_titles, all_subtitles, all_resume
 
+if __name__ == "__main__":
+    get_information(url,params)
+    strip_html(data)
+    get_clean_data(clean_data)
