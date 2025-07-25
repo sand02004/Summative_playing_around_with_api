@@ -9,38 +9,23 @@
 </head>
 <body>
     <h1>Maternal Health App</h1>
-    <p>Helping you to stay healthy during pregnancy.</p>
+    <p>Helping you to stay healthy during pregnancy.</p><br>
     
+    <form method="POST">
+        {{ form.hidden_tag() }}
 
-    <form id="searchForm" method="post" action="/">
-        <label for="name">Enter your name:</label>
-        <input type="text" id="name" name="name" required>
-        <label for="age">Enter your age:</label>
-        <input type="number" id="age" name="age" required>
-        <label for="sex" id="sex">Select your sex:</label>
-        <select id="sex" name="sex" required>
-            <option value="female">F</option>
-            <option value="male">M</option>
-            <option value="other">Other</option>
-        </select>
-        <label for="sexual_activity">Are you sexually active?</label>
-        <select id="sexual_activity" name="sexual_activity" required>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-        <label for="pregnant">Are you pregnant?</label>
-        <select id="pregnant" name="pregnant" required>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-        <label for="health_issues">Do you smoke?</label>
-        <select id="health_issues" name="health_issues" required>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-        <input type="submit" value="Submit">
+        <div>{{ form.name.label }} {{ form.name(class_="form-control") }}</div><br>
+        <div>{{ form.age.label }} {{ form.age(class_="form-control") }}</div><br>
+        <div>{{ form.sex.label }} {{ form.sex(class_="form-select") }}</div><br>
+        <div>{{ form.pregnant.label }} {{ form.pregnant(class_="form-select") }}</div><br>
+        <div>{{ form.sexually_active.label }} {{ form.sexually_active(class_="form-select") }}</div><br>
+        <div>{{ form.health_issue.label }} {{ form.health_issue(class_="form-select") }}</div><br>
+
+        <button type="submit" class="btn btn-primary">Search</button>
     </form>
-    <div id="results"></div>
+
+
+
     <script src="../static/js/script.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ import warnings
 from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 
 def get_information(url, params):
-    response = requests.get(url=url, params=params)
+    response = requests.get(url=url, params=params, timeout=10)
     if response.status_code == 200:
         return response.json()
 
@@ -22,7 +22,7 @@ def strip_html(data):
         return data
 
 def get_clean_data(clean_data):
-    required_data = clean_data["Result"]["Resources"]["All"]["Resource"][:10]
+    required_data = clean_data["Result"]["Resources"]["All"]["Resource"][:30]
     get_all_titles = [data["Title"] for data in required_data]
 
     all_subtitles = []

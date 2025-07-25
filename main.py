@@ -3,16 +3,21 @@
 import os
 import secrets
 from flask import Flask, request, redirect, url_for, render_template, session
+from flask_bootstrap5 import Bootstrap
 from flask_session import Session
 from prepare_info import get_information, strip_html, get_clean_data 
+from forms import searchForm
 
 app = Flask(__name__)  # Pass __name__ here
 
 # create temp folder to store the session
 os.makedirs("temp_session", exist_ok=True)
 
-# store temporary data using a session
 app.secret_key = secrets.token_hex(16)
+
+Bootstrap(app)
+
+# store temporary data using a session
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = os.path.abspath("temp_session")
 app.config['SESSION_PERMANENT'] = False
@@ -23,14 +28,15 @@ Session(app)
 #...................... Route logics......................
 @app.route("/", methods=["GET", "POST"])
 def home():
-    if request.method == "POST":
+    form = searchForm()
+    if form.validate_on_submit():
         # Get form data
-        name = request.form.get("name")
-        age = request.form.get("age")
-        sex = request.form.get("sex")
-        pregnant = request.form.get("pregnant")
-        sexually_active = request.form.get("sexual_activity")
-        health_issue = request.form.get("health_issues")
+        name = form.name.data
+        age = form.age.data
+        sex = form.sex.data
+        pregnant = form.pregnant.data
+        sexually_active = form.sexually_active.data
+        health_issue = form.health_issue.data
         params = {
             "age": age,
             "sex": sex,
@@ -44,7 +50,7 @@ def home():
         api_response = get_clean_data(clean_data=clean_data)
         session["api_response"] = api_response
         return redirect(url_for("get_infos"))
-    return render_template("index.html")
+    return render_template("index.html", form=form)
 
 @app.route("/get_infos", methods=["GET"])
 def get_infos():

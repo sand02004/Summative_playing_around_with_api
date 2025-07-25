@@ -2,3 +2,6 @@ flask
 flask-session
 requests
 beautifulsoup4
+flask-bootstrap5
+flask-wtf
+wtforms

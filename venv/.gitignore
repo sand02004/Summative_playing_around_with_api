@@ -1,0 +1,8 @@
+# remove __pycache__ directories
+__pycache__/
+
+# remove Python bytecode files
+*.pyc
+
+# remove virtual environment directories
+venv/
