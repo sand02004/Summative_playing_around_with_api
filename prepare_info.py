@@ -27,17 +27,16 @@ def get_clean_data(clean_data):
 
     all_subtitles = []
     all_resume = []
-
+    
     for resource in required_data:
         sections = resource["Sections"]["section"]
         subtitles = [section.get("Title", "") for section in sections]
         resume = [section.get("Content", "") for section in sections]
         all_subtitles.extend(subtitles)
         all_resume.extend(resume)
-
-    return get_all_titles, all_subtitles, all_resume
+    
+    all_image_url = [image["ImageUrl"] for image in required_data]
+    return get_all_titles, all_subtitles, all_resume, all_image_url
 
 if __name__ == "__main__":
-    get_information(url,params)
-    strip_html(data)
     get_clean_data(clean_data)
