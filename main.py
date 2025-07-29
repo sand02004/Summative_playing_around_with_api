@@ -69,7 +69,7 @@ def get_infos():
             "image_url": image_url
         })
 
-    return render_template("try_v1.html", grouped_info=grouped_info)
+    return render_template("info.html", grouped_info=grouped_info)
 
 @app.route("/article/<title>/<subtitle>")
 def read_article(title, subtitle):

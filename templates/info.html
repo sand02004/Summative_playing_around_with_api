@@ -2,72 +2,179 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Maternal Health Website App</title>
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maternal Health App</title>
 
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      color: #1f2937;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #4f46e5;
+      margin-bottom: 10px;
+    }
+
+    .lead {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+    }
+
+    .card-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 350px;
+      flex: 1 1 300px;
+      min-width: 260px;
+    }
+
+    @media (min-width: 600px) {
+      .card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+      }
+    }
+
+    @media (min-width: 900px) {
+      .card {
+        flex: 1 1 calc(33.333% - 20px);
+        max-width: calc(33.333% - 20px);
+      }
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #4f46e5;
+      text-align: left;
+    }
+
+    .card-subtitle {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: #6366f1;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .card-text {
+      flex: 1;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      color: #374151;
+    }
+
+    .btn {
+      text-align: center;
+      background-color: #4f46e5;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #4338ca;
+    }
+
+    .no-data {
+      background-color: #fef9c3;
+      color: #92400e;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .back {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .back .btn {
+      background-color: #6b7280;
+    }
+
+    .back .btn:hover {
+      background-color: #4b5563;
+    }
+  </style>
 </head>
-
 <body>
-  <div class="container py-5">
-    <div class="text-center mb-5">
-      <h1 class="display-5 fw-bold">Maternal Health App</h1>
-      <p class="lead">Helping you stay healthy.</p>
-    </div>
 
-    {% if grouped_info %}
+  <h1>Maternal Health App</h1>
+  <p class="lead">Helping you stay healthy.</p>
+
+  {% if grouped_info %}
+    <div class="card-wrapper">
       {% for title, items in grouped_info.items() %}
-        <h3 class="mb-4 text-primary">{{ title }}</h3>
-
-        <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-          {% for item in items %}
-            <div class="col">
-              <div class="card h-100 shadow-sm">
-                {% if item['image_url'] %}
-                <img
-                  src="{{ item['image_url'] }}"
-                  class="card-img-top"
-                  alt="Pregnancy tip image"
-                  style="height: auto; width: 100%; object-fit: cover;" />
-                {% endif %}
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">{{ item['subtitle'] }}</h5>
-                  <p class="card-text">
-                    {{ item['content'][:100] }}{% if item['content']|length > 100 %}...{% endif %}
-                  </p>
-
-                  {% if title and item['subtitle'] %}
-                  <a
-                    href="{{ url_for('read_article', title=title, subtitle=item['subtitle']) }}"
-                    class="btn btn-primary mt-auto">Read More</a>
-                  {% else %}
-                  <p class="text-muted small">Full article not available.</p>
-                  {% endif %}
-                </div>
+        {% for item in items %}
+          <div class="card">
+            {% if item['image_url'] %}
+              <img src="{{ item['image_url'] }}" alt="Image" />
+            {% endif %}
+            <div class="card-body">
+              <div class="card-title">{{ title }}</div>
+              <div class="card-subtitle">{{ item['subtitle'] }}</div>
+              <div class="card-text">
+                {{ item['content'][:100] }}{% if item['content']|length > 100 %}...{% endif %}
               </div>
+              {% if title and item['subtitle'] %}
+                <a href="{{ url_for('read_article', title=title, subtitle=item['subtitle']) }}" class="btn">Read More</a>
+              {% else %}
+                <p class="card-text" style="color: #9ca3af;">Full article not available.</p>
+              {% endif %}
             </div>
-          {% endfor %}
-        </div>
+          </div>
+        {% endfor %}
       {% endfor %}
-    {% else %}
-      <div class="alert alert-warning text-center">
-        No information available.
-      </div>
-    {% endif %}
-
-    <div class="text-center mt-4">
-      <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
     </div>
+  {% else %}
+    <div class="no-data">No information available.</div>
+  {% endif %}
+
+  <div class="back">
+    <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
   </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+# ignore venv/
+venv/
+# ignore .venv/
+.venv/
+# ignore virtualenv/
+virtualenv/
+# ignore __pycache__/
+__pycache__/
+# ignore .pytest_cache/
+.pytest_cache/
+# ignore .mypy_cache/
+.mypy_cache/
+# ignore temp_session/
+temp_session/
